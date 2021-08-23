@@ -2,6 +2,8 @@ import React from 'react'
 import { Button } from '@material-ui/core'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import { makeStyles } from '@material-ui/core'
+import { CARTPAGE } from '../routes'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -22,6 +24,8 @@ export default function Buttons() {
         color="default"
         className={classes.button}
         startIcon={<AddShoppingCartIcon />}
+        component={Link}
+        to={CARTPAGE}
       >
         ADD TO CART
       </Button>

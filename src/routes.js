@@ -7,3 +7,5 @@ export const ADMIN_PRODUCTS = '/admin/products'
 export const LOGIN = '/login'
 export const SIGN_UP = '/sign_up'
 export const PRIVATE = '/privatepage'
+export const CARTPAGE= '/CartPage'
+

@@ -11,6 +11,8 @@ import Login from './pages/login&signUp/login'
 import SignUp from './pages/login&signUp/SingUp'
 import Products from './pages/products'
 import SecondBody from './pages/secContent/secContent'
+import CartPage from './cart/CartPage'
+
 import {
   ADMIN_PANEL,
   HOMEPAGE,
@@ -18,6 +20,7 @@ import {
   PRIVATE,
   SIGN_UP,
   SINGLE_LIST,
+CARTPAGE
 } from './routes'
 import { isToken } from './store/user/userActions'
 
@@ -39,6 +42,8 @@ function App() {
           <Route exact path={SINGLE_LIST} component={SecondBody} />
           <PrivateRoute exact path={PRIVATE} component={PrivatePage} />
           <Route exact path={HOMEPAGE} component={Products} />
+          <PrivateRoute exact path={CARTPAGE} component={CartPage} />
+
         </Switch>
       </Router>
     </React.Fragment>
