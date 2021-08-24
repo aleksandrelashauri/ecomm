@@ -1,4 +1,4 @@
-import { SET_LOGEDIN, SET_TOKEN, SET_USER } from './userActions'
+import { SET_LOADING, SET_LOGEDIN, SET_TOKEN, SET_USER } from './userActions'
 
 export const setUser = (user) => {
   return {
@@ -11,6 +11,12 @@ export const setLogedIn = (isLogedIn) => {
   return {
     type: SET_LOGEDIN,
     payload: isLogedIn,
+  }
+}
+export const setLoading=(isLoading)=> {
+  return {
+      type: SET_LOADING,
+      payload: isLoading
   }
 }
 

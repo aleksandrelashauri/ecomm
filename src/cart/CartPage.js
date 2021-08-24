@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Button,
@@ -11,13 +11,24 @@ import {
 import Loyout from "../Loyout/Loyout";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
+import { selectCart } from "../store/products/prodSelector";
+import { setLoading } from "../store/user/userActionsCreator";
+import { Api } from "../Hooks/CustomApiHook";
+import { setCart } from "../store/products/prodActionCreat";
 import { useParams } from "react-router-dom";
+import Loader from "../component/Loader";
+import { selectLoading } from "../store/user/userSelector";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import InfoIcon from '@material-ui/icons/Info';
 import PaymentIcon from '@material-ui/icons/Payment';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Quantity from '../component/Quantity'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+
+import BasicTextFields from './components/textField'
+
 const useStyles = makeStyles(() => ({
   cart: {
     fontWeight:500,
@@ -30,7 +41,7 @@ const useStyles = makeStyles(() => ({
     color:'#4f4f4f',
   },
   img: {
-    width: "80%",
+    width: "49%",
   },
   root: {
     display: "flex",
@@ -56,8 +67,7 @@ const useStyles = makeStyles(() => ({
     color:'blue'
   },
   exp:{
-    padding: "100px 0 50px 0",
-    textAlign: "center",
+    padding: "100px 0 20px 0",
     fontSize: "30px",
   },
 
@@ -65,29 +75,53 @@ const useStyles = makeStyles(() => ({
 
 const CartPage = () => {
   const classes = useStyles();
+  const cart = useSelector(selectCart);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const loading = useSelector(selectLoading);
+
+  console.log(cart);
+
+  useEffect(() => {
+    dispatch(setLoading(true));
+    Api.getSingleProduct(id)
+      .then((json) => {
+        dispatch(setCart(json));
+
+        console.log(json);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => dispatch(setLoading(false)));
+  }, [id]);
+
 
   return (
     <Loyout>
       <Box className={classes.cart}>Shopping cart</Box>
       <Container>
+      <Loader isLoading={loading}>
+      {!!cart.hasOwnProperty("image")}
           <Grid container>
             <Grid item xs={12} md={8}>
             <Box className={classes.title}>Cart</Box>
-
               <Card className={classes.root}>
                 <Grid container>
                   <Grid item xs={12} md={3}>
                     {" "}
                     <img
-                      alt="Picture"
+                      src={cart.image}
+                      alt="surati"
                       className={classes.img}
                     />
                   </Grid>
                   <Grid item xs={6} md={6}>
                     <CardContent>
-                      <Box className={classes.pos}>Color:</Box>
+                    <Box className={classes.title}>{cart.title}</Box>
+                      <Box className={classes.pos}>Color:{cart.color}</Box>
                       <Box className={classes.pos} color="textSecondary">
-                        Size:
+                        Size:{cart.color}
                       </Box>
                     </CardContent>
                     <CardActions>
@@ -106,6 +140,7 @@ const CartPage = () => {
                       <Quantity/>
                     </Box>
                     <Box>(Note, 1 piece)</Box>
+                    <Box marginTop="100px">$ {cart.price}</Box>
                   </Grid>
                 </Grid>
               </Card>
@@ -116,6 +151,8 @@ const CartPage = () => {
                   <Box className={classes.title}>The total amount of</Box>
                   <Box display="flex" justifyContent="space-between">
                     <Box>Temporary amount</Box>
+                    <Box>{cart.price}</Box>
+
                   </Box>
                   <Box display="flex" justifyContent="space-between">
                     <Box>Shipping</Box>
@@ -124,20 +161,17 @@ const CartPage = () => {
                   <Box display="flex" justifyContent="space-between">
                     <Box fontWeight=' 500 '>The total amount of (including VAT)</Box>
                     <Box> $</Box>
+                    <Box>{cart.price}</Box>
                   </Box>
                 </CardContent>
-
                 <CardActions>
                 <Button variant="contained" color="primary">
                     Go To Checkout
                     </Button>
-                </CardActions>
-               
-            
-                  
+                </CardActions>    
+                <BasicTextFields/>    
               </Card>
               <CardActions>
-                  <Button>    Add a discount code (optional)</Button>
                 </CardActions>
             </Grid>
           </Grid>
@@ -156,13 +190,15 @@ const CartPage = () => {
             <box className={classes.exp}>
             We accept
             </box>
-            <box fontSize='xxx-large' >
-            <PaymentIcon fontSize='xxx-large'/>
-            <AttachMoneyIcon fontSize='xxx-large'/>
-            <PaymentIcon fontSize='xxx-large'/>
+            <box >
+            <AttachMoneyIcon fontSize="large" color="secondary"/>
+            <EuroSymbolIcon  fontSize="large" color="secondary"/>
+            <PaymentIcon fontSize="large"  color="secondary"/>
+            <AccountBalanceWalletIcon fontSize="large" color="secondary"/>
             </box>
             </Card>
           </Grid>
+          </Loader>
       </Container>
     </Loyout>
   );

@@ -1,7 +1,9 @@
-import { SET_PRODUCTS } from './prodActions'
+import {SET_CART,SET_SINGLE, SET_PRODUCTS } from './prodActions'
 
 const initialState = {
   products: [],
+  single: {},
+  cart: []
 }
 
 export default function productsReducer(state = initialState, action) {
@@ -11,6 +13,16 @@ export default function productsReducer(state = initialState, action) {
         ...state,
         products: action.payload,
       }
+      case SET_SINGLE:
+        return  {
+            ...state,
+           single: action.payload
+        }
+    case SET_CART:
+        return  {
+            ...state,
+            cart: action.payload
+        }
     default:
       return state
   }

@@ -5,7 +5,9 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import IconButton from '@material-ui/core/IconButton';
 import {
-  IconFlagUS,IconFlagGeo
+  IconFlagTR,
+  IconFlagDE,
+  IconFlagUS
 } from 'material-ui-flags';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,13 +51,10 @@ export default function ControlledOpenSelect() {
           onChange={handleChange}
         >
           <MenuItem value="English">
-            <em><IconFlagUS
-          style={{ fontSize: '30px', paddingLeft: '15px', cursor: 'pointer' }}
-        /></em>
+            <em><IconFlagUS/></em>
           </MenuItem>
-          <MenuItem value={10}>Georgian</MenuItem>
-          <MenuItem value={20}>Russian</MenuItem>
-          <MenuItem value={30}>Chinese</MenuItem>
+          <MenuItem value={10}> < IconFlagDE/> </MenuItem>
+          <MenuItem value={20}> < IconFlagTR/></MenuItem>
         </Select>
       </FormControl>
     </div>

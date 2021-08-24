@@ -42,8 +42,7 @@ function App() {
           <Route exact path={SINGLE_LIST} component={SecondBody} />
           <PrivateRoute exact path={PRIVATE} component={PrivatePage} />
           <Route exact path={HOMEPAGE} component={Products} />
-          <PrivateRoute exact path={CARTPAGE} component={CartPage} />
-
+          <Route exact path={CARTPAGE} component={CartPage} />
         </Switch>
       </Router>
     </React.Fragment>

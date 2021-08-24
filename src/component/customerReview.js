@@ -45,7 +45,7 @@ export default function CustomerReview() {
                 src={
                   'https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg'
                 }
-                alt={'photo'}
+                alt={'hoto'}
               />
             </Box>
             <Box className={classes.fnT}>

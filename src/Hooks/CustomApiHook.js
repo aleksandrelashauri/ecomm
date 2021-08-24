@@ -2,6 +2,7 @@ import { serializeProductList } from './Serialize'
 import { serializeSingleProduct } from './Serialize'
 
 export const Api = {
+ 
   baseUrl: 'http://159.65.126.180/api/',
   getData: function (url, params, method = 'get', confirmation) {
     return fetch(this.baseUrl + url, {
@@ -44,4 +45,8 @@ export const Api = {
   privatePage: function () {
     return Api.getData('auth/me', {}, 'post')
   },
+  update: function (id,name,avatar) {
+    return Api.getData(`users/${id}/update`, {name,avatar},'post',true)
+  }
+
 }
